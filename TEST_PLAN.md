@@ -1,4 +1,4 @@
-# 📄 PLANO DE TESTES E CASOS DE TESTE MANUAIS
+# PLANO DE TESTES E CASOS DE TESTE MANUAIS
 
 **Sistema:** React + NestJS Movies DB
 **Tipo de Teste:** Testes Funcionais Manuais
@@ -54,7 +54,7 @@ Garantir que as funcionalidades principais do sistema:
 * Backend: NestJS
 * Frontend: React
 * API externa: TMDB (The Movie Database)
-* Sistema operacional: Windows 10+
+* Sistema operacional: Windows 11
 
 ---
 
@@ -84,7 +84,7 @@ Valida regras de negócio com múltiplas condições
 
 ---
 
-# 🔹 6.1 CADASTRO DE USUÁRIO (SIGN UP)
+# 6.1 CADASTRO DE USUÁRIO (SIGN UP)
 
 ## 6.1.1 Particionamento de Equivalência
 
@@ -147,7 +147,7 @@ Valida regras de negócio com múltiplas condições
 
 ---
 
-# 🔹 6.2 LOGIN
+# 6.2 LOGIN
 
 ## 6.2.1 Particionamento de Equivalência
 
@@ -200,7 +200,7 @@ Valida regras de negócio com múltiplas condições
 
 ---
 
-# 🔹 6.3 BUSCA DE FILMES
+# 6.3 BUSCA DE FILMES
 
 ## 6.3.1 Particionamento
 
@@ -242,7 +242,7 @@ Valida regras de negócio com múltiplas condições
 
 ---
 
-# 🔹 6.4 CRUD DE FILMES
+# 6.4 CRUD DE FILMES
 
 ---
 
@@ -336,7 +336,7 @@ Valida regras de negócio com múltiplas condições
 
 ---
 
-# 🔹 6.5 CASOS DE BORDA (VALOR LIMITE GERAL)
+# 6.5 CASOS DE BORDA (VALOR LIMITE GERAL)
 
 | Cenário                 | Resultado Esperado |
 | ----------------------- | ------------------ |
