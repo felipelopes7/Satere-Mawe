@@ -368,11 +368,3 @@ Valida regras de negócio com múltiplas condições
 
 O plano de testes garante cobertura das principais funcionalidades do sistema, aplicando técnicas fundamentais de teste de software. A abordagem permite identificar falhas tanto em validações quanto em regras de negócio, assegurando maior confiabilidade do sistema.
 =======
-cat << 'EOF' > TEST_PLAN.md
-# 📋 Plano de Testes Manuais (Entrega 1)
-**Projeto:** Full-Stack de Gerenciamento de Filmes (NestJS + Next.js)  
-**Período Letivo:** 2026/02  
-**Disciplina:** Verificação, Validação e Testes de Software  
-**Escola Superior de Tecnologia – Universidade do Estado do Amazonas (UEA)**
-
----
