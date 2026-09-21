@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # PLANO DE TESTES E CASOS DE TESTE MANUAIS
 
 **Sistema:** React + NestJS Movies DB
@@ -367,3 +368,87 @@ Valida regras de negócio com múltiplas condições
 # 9. CONCLUSÃO
 
 O plano de testes garante cobertura das principais funcionalidades do sistema, aplicando técnicas fundamentais de teste de software. A abordagem permite identificar falhas tanto em validações quanto em regras de negócio, assegurando maior confiabilidade do sistema.
+=======
+cat << 'EOF' > TEST_PLAN.md
+# 📋 Plano de Testes Manuais (Entrega 1)
+**Projeto:** Full-Stack de Gerenciamento de Filmes (NestJS + Next.js)  
+**Período Letivo:** 2026/02  
+**Disciplina:** Verificação, Validação e Testes de Software  
+**Escola Superior de Tecnologia – Universidade do Estado do Amazonas (UEA)**
+
+---
+
+## 📌 1. Introdução e Escopo
+Este documento detalha o planejamento e a especificação dos **Casos de Teste Manuais** para a aplicação de gerenciamento de filmes baseada em NestJS (Backend) e Next.js (Frontend). 
+
+O escopo dos testes manuais abrange as principais funcionalidades críticas do sistema:
+1. **Módulo de Autenticação e Autorização** (Controle de acesso por perfis e JWT).
+2. **Módulo de Cadastro e Gerenciamento de Filmes** (Validação de campos e regras de negócio).
+3. **Módulo de Avaliação e Regras de Exibição** (Comportamento condicional para usuários assinantes e administradores).
+
+---
+
+## 🛠️ 2. Técnicas de Teste Aplicadas
+Para garantir a cobertura de cenários válidos e inválidos sem redundância, foram utilizadas as seguintes técnicas de caixa-preta:
+* **Particionamento de Equivalência:** Divisão dos dados de entrada em classes onde o comportamento do sistema deve ser homogêneo.
+* **Análise do Valor Limite (AVL):** Foco nas bordas e extremidades das classes de entrada (limites aceitos e rejeitados).
+* **Tabela de Decisão:** Mapeamento de combinações complexas de regras de negócios e permissões de acesso.
+
+---
+
+## 📝 3. Especificação dos Casos de Teste Manuais
+
+### CT01: Cadastro de Filme - Ano de Lançamento (Particionamento de Equivalência)
+* **Objetivo:** Validar se o sistema aceita anos válidos e rejeita anos inválidos (futuros ou anteriores à invenção do cinema).
+* **Pré-condições:** Estar logado no painel administrativo do Next.js.
+* **Passos:**
+  1. Acessar a tela de cadastro de filmes.
+  2. Preencher os dados obrigatórios e inserir o valor de teste no campo *Ano de Lançamento*.
+  3. Clicar em "Salvar".
+
+| ID do Subcaso | Valor de Entrada (Ano) | Tipo de Classe | Resultado Esperado | Status |
+| :--- | :---: | :---: | :--- | :---: |
+| **CT01.1** | `2024` | Válida | O sistema aceita o dado e prossegue com o cadastro com sucesso. | `[ ]` |
+| **CT01.2** | `2030` | Inválida (Futuro) | O sistema rejeita a entrada e exibe mensagem de erro de ano futuro. | `[ ]` |
+| **CT01.3** | `1850` | Inválida (Antigo) | O sistema rejeita a entrada e exibe mensagem de erro por data inválida. | `[ ]` |
+
+---
+
+### CT02: Cadastro de Filme - Nota/Avaliação do Filme (Análise do Valor Limite)
+* **Objetivo:** Testar os limites de pontuação aceitos pelo sistema (escala de 0 a 5 estrelas).
+* **Pré-condições:** Estar logado no painel administrativo.
+* **Passos:** Inserir os valores de contorno no campo de avaliação de um filme.
+
+| ID do Subcaso | Valor de Entrada | Limite / Adjacência | Resultado Esperado | Status |
+| :--- | :---: | :--- | :--- | :---: |
+| **CT02.1** | `-1` | Abaixo do Limite Inferior | Rejeição da nota (mensagem de erro). | `[ ]` |
+| **CT02.2** | `0` | No Limite Inferior Exato | Aceitação da nota mínima (válido). | `[ ]` |
+| **CT02.3** | `1` | Logo Acima do Limite Inferior | Aceitação da nota (válido). | `[ ]` |
+| **CT02.4** | `4` | Logo Abaixo do Limite Superior | Aceitação da nota (válido). | `[ ]` |
+| **CT02.5** | `5` | No Limite Superior Exato | Aceitação da nota máxima (válido). | `[ ]` |
+| **CT02.6** | `6` | Acima do Limite Superior | Rejeição da nota (mensagem de erro). | `[ ]` |
+
+---
+
+### CT03: Permissões e Regras de Acesso (Tabela de Decisão)
+* **Objetivo:** Validar as ações permitidas com base no perfil do usuário, status do filme e tipo de assinatura.
+* **Pré-condições:** Possuir credenciais de Administrador e de Usuário Comum (com e sem assinatura Premium).
+
+#### Matriz de Decisão:
+| Condições / Regras | Regra 1 | Regra 2 | Regra 3 | Regra 4 | Regra 5 |
+| :--- | :---: | :---: | :---: | :---: | :---: |
+| **É Administrador?** | Sim | Não | Não | Não | Não |
+| **Filme está Ativo no Catálogo?** | - | Sim | Sim | Não | Não |
+| **Tem Assinatura Premium?** | - | Sim | Não | Sim | Não |
+| **Ações / Resultados Esperados** | | | | | |
+| **Permitir Editar/Excluir Filme** | **X** | - | - | - | - |
+| **Permitir Assistir ao Filme** | **X** | **X** | **X** *(Com anúncios)* | - | - |
+| **Exibir Erro de Conteúdo Indisponível** | - | - | - | **X** | **X** |
+
+* **Passos de Execução para validação (Exemplo Regra 3):**
+  1. Logar com um usuário comum sem assinatura Premium.
+  2. Acessar um filme com status ativo no catálogo.
+  3. Tentar reproduzir o conteúdo.
+  * *Resultado Esperado:* O sistema reproduz o filme, mas aplica as restrições do plano gratuito (exibindo anúncios).
+EOF
+>>>>>>> baf2a42 (ReadMe)
