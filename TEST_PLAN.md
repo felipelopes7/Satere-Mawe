@@ -477,26 +477,26 @@ Esta seção deverá ser preenchida durante a execução dos testes.
 
 | ID | Resultado | Evidência | Observação |
 | :--- | :--- | :--- | :--- |
-| **CT01** | A executar | - | - |
-| **CT02** | A executar | - | - |
-| **CT03** | A executar | - | - |
-| **CT04** | A executar | - | - |
-| **CT05** | A executar | - | - |
-| **CT06** | A executar | - | - |
-| **CT07** | A executar | - | - |
-| **CT08** | A executar | - | - |
-| **CT09** | A executar | - | - |
-| **CT10** | A executar | - | - |
-| **CT11** | A executar | - | - |
-| **CT12** | A executar | - | - |
-| **CT13** | A executar | - | - |
-| **CT14** | A executar | - | - |
-| **CT15** | A executar | - | - |
-| **CT16** | A executar | - | - |
-| **CT17** | A executar | - | - |
-| **CT18** | A executar | - | - |
-| **CT19** | A executar | - | - |
-| **CT20** | A executar | - | - |
+| **CT01** | Aprovado | Execução manual | Cadastro com dados válidos concluído com sucesso. |
+| **CT02** | Aprovado | Execução manual | Sistema rejeitou o e-mail `usuario.com` e exibiu mensagem de validação. |
+| **CT03** | **Reprovado** | Execução manual — ver BUG-001 | Senha com 5 ou menos caracteres foi aceita pelo sistema, sem nenhuma validação de tamanho mínimo. |
+| **CT04** | Aprovado | Execução manual | Senha com 6 caracteres foi aceita normalmente. |
+| **CT05** | Aprovado | Execução manual | Cadastro com campos vazios foi impedido e mensagem de validação foi exibida. |
+| **CT06** | Aprovado | Execução manual | Login com credenciais válidas autenticou o usuário com sucesso. |
+| **CT07** | Aprovado | Execução manual | Login com senha incorreta foi rejeitado com mensagem de erro. |
+| **CT08** | Aprovado | Execução manual | Login com usuário inexistente foi rejeitado com mensagem de erro. |
+| **CT09** | Aprovado | Execução manual | Login com campos vazios foi impedido/validado corretamente. |
+| **CT10** | Aprovado | Execução manual | Busca por "Batman" retornou filmes relacionados via API TMDB. |
+| **CT11** | Aprovado | Execução manual | Busca com campo vazio não quebrou a interface. |
+| **CT12** | Aprovado | Execução manual | Termo inexistente retornou lista vazia/sem resultados, sem erro. |
+| **CT13** | Aprovado | Execução manual | Termo com mais de 100 caracteres foi tratado sem quebrar a interface. |
+| **CT14** | Aprovado | Execução manual | Filme adicionado com dados válidos apareceu na lista do usuário. |
+| **CT15** | Aprovado | Execução manual | Cadastro de filme com título vazio foi rejeitado, informando campo obrigatório. |
+| **CT16** | Aprovado | Execução manual | Edição de filme existente com dados válidos foi persistida corretamente. |
+| **CT17** | Aprovado | Execução manual | Edição removendo campo obrigatório foi rejeitada pelo sistema. |
+| **CT18** | Aprovado | Execução manual | Filme removido deixou de aparecer na lista. |
+| **CT19** | Aprovado | Execução manual | Acesso a funcionalidade protegida sem autenticação foi bloqueado/redirecionado para login. |
+| **CT20** | Aprovado | Execução manual | Logout encerrou a sessão; acesso a área protegida exigiu novo login. |
 
 **Legenda:**
 * **Aprovado:** comportamento observado corresponde ao resultado esperado.
@@ -520,42 +520,45 @@ Após a execução dos testes, deverão ser registrados:
 | Indicador | Resultado |
 | :--- | :--- |
 | **Total de casos** | 20 |
-| **Aprovados** | *A preencher* |
-| **Reprovados** | *A preencher* |
-| **Bloqueados** | *A preencher* |
-| **Defeitos encontrados** | *A preencher* |
+| **Aprovados** | 19 |
+| **Reprovados** | 1 (CT03) |
+| **Bloqueados** | 0 |
+| **Percentual de aprovação** | 95% (19/20) |
+| **Defeitos encontrados** | 1 (BUG-001 — ausência de validação de tamanho mínimo de senha) |
+
+A execução cobriu os 20 casos de teste planejados, sem nenhum bloqueio por indisponibilidade de banco de dados, backend ou da API externa TMDB. O único caso reprovado (CT03) revelou um defeito real na regra de negócio de senha mínima, documentado a seguir no BUG-001.
 
 ---
 
 ## 14. Bug Report
 
-> **BUG-001 - [Título do defeito]**  
-> **Severidade:** A preencher  
-> **Prioridade:** A preencher  
-> **Caso de teste relacionado:** CTXX  
-> **Data:** A preencher  
+> **BUG-001 - Sistema aceita senha abaixo do limite mínimo de 6 caracteres no cadastro de usuário**  
+> **Severidade:** Alta  
+> **Prioridade:** Alta  
+> **Caso de teste relacionado:** CT03  
+> **Data:** 22/09/2026  
 > **Ambiente:** Windows 11 / Google Chrome  
 >
 > **Pré-condição:**  
-> Descrever o estado necessário para reproduzir o defeito.
+> Usuário não cadastrado. Tela de cadastro (Sign Up) disponível e acessível.
 > 
 > **Passos para reprodução:**  
-> 1. Primeiro passo.
-> 2. Segundo passo.
-> 3. Terceiro passo.
-> 4. Ação que provoca o problema.
+> 1. Acessar a tela de cadastro.
+> 2. Informar um e-mail válido (ex.: `teste@email.com`).
+> 3. Informar uma senha com exatamente 5 caracteres (ex.: `abc12`).
+> 4. Clicar em "Sign Up".
 > 
 > **Resultado esperado:**  
-> Descrever o comportamento esperado.
+> O sistema deve rejeitar o cadastro e informar que a senha não atende ao tamanho mínimo de 6 caracteres definido na regra de negócio.
 > 
 > **Resultado obtido:**  
-> Descrever exatamente o comportamento observado.
+> O sistema aceita a senha de 5 ou menos caracteres normalmente, cria o usuário com sucesso e nenhuma mensagem de validação é exibida.
 > 
 > **Evidência:**  
-> Adicionar screenshot, vídeo ou outra evidência quando disponível.
+> Cadastro concluído com sucesso ao enviar senha de 5 caracteres; nenhuma mensagem de erro retornada pela API (`POST /auth/signup`).
 > 
 > **Impacto:**  
-> Descrever como o defeito afeta o funcionamento do sistema.
+> Compromete a política de segurança da aplicação, permitindo que usuários criem contas com senhas fracas. Viola diretamente a regra de negócio descrita na seção 5.2 deste plano (senha mínima de 6 caracteres) e o critério de aceitação de tratamento adequado de entradas inválidas (seção 15).
 
 ---
 
@@ -574,6 +577,8 @@ O presente plano de testes estabelece uma abordagem estruturada para a avaliaç�
 
 Foram definidos 20 casos de teste manuais, contemplando as principais funcionalidades do sistema e utilizando quatro técnicas de teste: Particionamento de Equivalência, Análise de Valor Limite, Tabela de Decisão e Transição de Estados.
 
-A matriz de rastreabilidade relaciona os requisitos aos respectivos casos de teste, permitindo avaliar a cobertura funcional. Durante a execução, os resultados deverão ser registrados e os defeitos encontrados deverão ser documentados por meio de bug reports.
+A matriz de rastreabilidade relaciona os requisitos aos respectivos casos de teste, permitindo avaliar a cobertura funcional.
+
+Na execução realizada, 19 dos 20 casos de teste (95%) foram aprovados, sem nenhum caso bloqueado. O caso CT03 foi reprovado, revelando um defeito real na validação da senha mínima durante o cadastro de usuário (RF01), documentado no BUG-001. De forma geral, o sistema demonstrou tratamento adequado de entradas inválidas, proteção de rotas autenticadas e comportamento correto nas transições de estado avaliadas, com exceção da regra de negócio de tamanho mínimo de senha, que deve ser corrigida antes de uma eventual validação final do sistema.
 
 Dessa forma, o plano fornece uma base para avaliar sistematicamente o comportamento do sistema e identificar problemas relacionados à validação de entradas, regras de negócio, autenticação, gerenciamento de filmes e integração com serviços externos.
